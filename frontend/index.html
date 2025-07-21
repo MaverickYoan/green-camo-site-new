@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Site Vert Camouflage</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenue sur le site Vert Camouflage</h1>
+    <p id="welcome-msg">Ceci est la page d'accueil.</p>
+    <div id="actions">
+      <a href="login.html" id="login-link"><button>Se connecter</button></a>
+      <button id="logout-btn" style="display:none;">Déconnexion</button>
+      <a href="admin.html" id="admin-link" style="display:none;"><button>Panneau admin</button></a>
+    </div>
+    <div id="user-info" style="margin-top:1em;"></div>
+  </div>
+</body>
+<script>
+  // Affichage dynamique selon connexion
+  function getUser() {
+    try {
+      return JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || 'null');
+    } catch { return null; }
+  }
+  const user = getUser();
+  const msg = document.getElementById('welcome-msg');
+  const loginLink = document.getElementById('login-link');
+  const logoutBtn = document.getElementById('logout-btn');
+  const adminLink = document.getElementById('admin-link');
+  const userInfo = document.getElementById('user-info');
+
+  if (user && user.email) {
+    msg.textContent = `Bienvenue, ${user.email} !`;
+    loginLink.style.display = 'none';
+    logoutBtn.style.display = 'inline-block';
+    userInfo.textContent = `Connecté en tant que ${user.role}`;
+    if (user.role === 'admin') {
+      adminLink.style.display = 'inline-block';
+    }
+  } else {
+    msg.textContent = "Ceci est la page d'accueil.";
+    loginLink.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    adminLink.style.display = 'none';
+    userInfo.textContent = '';
+  }
+
+  logoutBtn.onclick = function() {
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+    window.location.reload();
+  };
+</script>
+</html>

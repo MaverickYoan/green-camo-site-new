@@ -1,0 +1,31 @@
+# 1. 克隆/解压目录后
+cd backend
+npm install
+npm run init     # 仅第一次，初始化用户
+npm run dev      # 后端跑在 4000 端口
+
+# 2. 另开终端
+cd frontend
+# 任意静态服务器都行，例如：
+npx serve .      # 默认 3000 端口
+
+浏览器打开 http://localhost:3000
+• 用 user@test.com / 123456 → 重定向到首页
+• 用 admin@test.com / admin123 → 重定向到 admin.html
+
+---------------------------------------------
+
+# 1. Après avoir cloné/décompressé le répertoire
+cd backend
+npm install
+npm run init # Initialiser l'utilisateur uniquement lors de la première utilisation
+npm run dev # Le backend s'exécute sur le port 4000
+
+# 2. Ouvrir un autre terminal
+cd frontend
+# N'importe quel serveur statique fera l'affaire, par exemple :
+npx serve . # Port par défaut : 3000
+
+Ouvrez le navigateur à l'adresse http://localhost:3000
+• Utiliser user@test.com / 123456 → rediriger vers la page d'accueil
+• Utiliser admin@test.com / admin123 → rediriger vers admin.html

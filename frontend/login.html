@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Connexion</h1>
+    <form id="loginForm" autocomplete="on">
+      <label for="email">Email
+        <input type="email" id="email" name="email" required autocomplete="username" />
+      </label>
+      <label for="password">Mot de passe
+        <input type="password" id="password" name="password" required autocomplete="current-password" />
+      </label>
+      <button type="submit">Se connecter</button>
+    </form>
+    <button id="show-register">Créer un compte</button>
+    <form id="registerForm" style="display:none; margin-top:1em;">
+      <h2>Inscription</h2>
+      <label for="reg-email">Email
+        <input type="email" id="reg-email" name="email" required />
+      </label>
+      <label for="reg-password">Mot de passe
+        <input type="password" id="reg-password" name="password" required />
+      </label>
+      <button type="submit">S'inscrire</button>
+      <button type="button" id="cancel-register">Annuler</button>
+    </form>
+    <p id="msg" class="msg"></p>
+    <p><a href="index.html">Retour à l'accueil</a></p>
+  </div>
+
+  <script>
+    // Affichage/masquage du formulaire d'inscription
+    document.getElementById('show-register').onclick = () => {
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('show-register').style.display = 'none';
+      document.getElementById('msg').textContent = '';
+    };
+    document.getElementById('cancel-register').onclick = () => {
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('show-register').style.display = 'inline-block';
+      document.getElementById('msg').textContent = '';
+    };
+
+    // Connexion
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const res = await fetch('http://localhost:4000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(Object.fromEntries(fd))
+      });
+      const data = await res.json();
+      const msg = document.getElementById('msg');
+      if (!res.ok) {
+        msg.textContent = data.message;
+        msg.style.color = '#ffeb3b';
+      } else {
+        // Stockage utilisateur (localStorage/sessionStorage)
+        try {
+          localStorage.setItem('user', JSON.stringify(data));
+        } catch { sessionStorage.setItem('user', JSON.stringify(data)); }
+        msg.textContent = '';
+        location.href = data.role === 'admin' ? 'admin.html' : 'index.html';
+      }
+    });
+
+    // Inscription
+    document.getElementById('registerForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const res = await fetch('http://localhost:4000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(Object.fromEntries(fd))
+      });
+      const data = await res.json();
+      const msg = document.getElementById('msg');
+      if (!res.ok) {
+        msg.textContent = data.message;
+        msg.style.color = '#ffeb3b';
+      } else {
+        msg.textContent = 'Inscription réussie, vous pouvez vous connecter.';
+        msg.style.color = '#4caf50';
+        document.getElementById('registerForm').reset();
+        setTimeout(() => {
+          document.getElementById('registerForm').style.display = 'none';
+          document.getElementById('loginForm').style.display = 'block';
+          document.getElementById('show-register').style.display = 'inline-block';
+          msg.textContent = '';
+        }, 1500);
+      }
+    });
+
+    // Si déjà connecté, redirige
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || 'null');
+      if (user && user.email) {
+        window.location.href = user.role === 'admin' ? 'admin.html' : 'index.html';
+      }
+    } catch {}
+  </script>
+</body>
+</html>

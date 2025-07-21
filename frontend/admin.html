@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Panneau d'administration</h1>
+    <p id="admin-greeting">Bonjour administrateur !</p>
+    <button onclick="location.href='index.html'">Retour à l'accueil</button>
+    <button id="logout-btn">Déconnexion</button>
+    <hr>
+    <h2>Utilisateurs inscrits</h2>
+    <div id="users-section">
+      <table id="users-table" aria-label="Liste des utilisateurs">
+        <thead>
+          <tr><th>ID</th><th>Email</th><th>Rôle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3">Chargement...</td></tr>
+        </tbody>
+      </table>
+      <div id="users-error" style="color:rgb(255, 115, 0); display:none;"></div>
+    </div>
+  </div>
+  <script>
+    // Déconnexion (efface le stockage local/session)
+    document.getElementById('logout-btn').onclick = function() {
+      localStorage.removeItem('user');
+      sessionStorage.removeItem('user');
+      window.location.href = 'login.html';
+    };
+
+    // Vérifie si l'utilisateur est admin (simple démo)
+    const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || 'null');
+    if (!user || user.role !== 'admin') {
+      alert('Accès réservé aux administrateurs.');
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('admin-greeting').textContent = `Bonjour ${user.email} !`;
+    }
+
+    // Récupère et affiche la liste des utilisateurs
+    fetch('http://localhost:4000/api/users')
+      .then(r => r.ok ? r.json() : Promise.reject(r))
+      .then(users => {
+        const tbody = document.querySelector('#users-table tbody');
+        tbody.innerHTML = '';
+        users.forEach(u => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${u.id}</td><td>${u.email}</td><td>${u.role}</td>`;
+          tbody.appendChild(tr);
+        });
+        if (users.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="3">Aucun utilisateur</td></tr>';
+        }
+      })
+      .catch(err => {
+        document.getElementById('users-error').style.display = 'block';
+        document.getElementById('users-error').textContent = 'Erreur lors du chargement des utilisateurs.';
+      });
+  </script>
+</body>
+</html>

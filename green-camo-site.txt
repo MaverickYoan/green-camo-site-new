@@ -1,0 +1,11 @@
+green-camo-site/
+├─ backend/
+│  ├─ package.json
+│  ├─ server.js
+│  └─ init-db.js
+└─ frontend/
+   ├─ index.html
+   ├─ login.html
+   ├─ admin.html
+   └─ css/
+      └─ style.css

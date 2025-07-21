@@ -1,0 +1,29 @@
+{
+  "name": "green-camo-backend",
+  "version": "1.0.0",
+  "description": "Backend du site Green Camo, API Express avec SQLite.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "init": "node init-db.js"
+    ,
+    "start": "node server.js",
+    "test": "echo \"No test specified\" && exit 0",
+    "lint": "echo \"No linter configured\" && exit 0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.6"
+  }
+  ,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/votre-utilisateur/green-camo-site.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": ["express", "sqlite", "api", "backend", "green-camo"]
+}

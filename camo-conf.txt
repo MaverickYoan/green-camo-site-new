@@ -1,0 +1,8 @@
+Le fichier package.json a été amélioré pour supporter les commandes npm classiques (start, test, lint), et inclut maintenant une description, un champ repository, des keywords, une licence, et un champ author. Vous pouvez maintenant utiliser les commandes npm suivantes dans le dossier backend :
+
+npm start pour lancer le serveur
+npm run dev pour lancer le serveur (identique à start)
+npm run init pour initialiser la base de données
+npm test (placeholder)
+npm run lint (placeholder)
+N'hésitez pas à personnaliser les champs author et repository si besoin.
