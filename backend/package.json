@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "init": "node init-db.js"
-    ,
+    "init": "node init-db.js",
     "start": "node server.js",
     "test": "echo \"No test specified\" && exit 0",
     "lint": "echo \"No linter configured\" && exit 0"
@@ -17,13 +16,23 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "sqlite3": "^5.1.6"
-  }
-  ,
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/votre-utilisateur/green-camo-site.git"
   },
   "author": "",
   "license": "MIT",
-  "keywords": ["express", "sqlite", "api", "backend", "green-camo"]
+  "keywords": [
+    "express",
+    "sqlite",
+    "api",
+    "backend",
+    "green-camo"
+  ],
+  "devDependencies": {
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
 }
