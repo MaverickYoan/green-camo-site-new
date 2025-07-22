@@ -6,3 +6,25 @@ npm run init pour initialiser la base de données
 npm test (placeholder)
 npm run lint (placeholder)
 N'hésitez pas à personnaliser les champs author et repository si besoin.
+
+
+{ email: 'user@test.com', password: '123456', role: 'user' },
+{ email: 'admin@test.com', password: 'admin123', role: 'admin' }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
