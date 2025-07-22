@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "routes": "^2.1.0",
     "sqlite3": "^5.1.6"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "green-camo"
   ],
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
     "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
