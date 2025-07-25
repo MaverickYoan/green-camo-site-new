@@ -12,5 +12,7 @@
     },
     "devDependencies": {
         "vite": "^2.0.0"
-    }
+    },
+    "keywords": ["symfony-ux"]
+
 }
